@@ -1,0 +1,39 @@
+{
+  "name": "agnoscoffeeshop",
+  "version": "1.0.0",
+  "description": "A day at a coffee shop!",
+  "main": "dist/server",
+  "dependencies": {
+    "bcrypt": "^3.0.8",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.13.7",
+    "querymen": "^2.1.4",
+    "uuid": "^7.0.3",
+    "validator": "^10.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-nodemon": "^2.5.0"
+  },
+  "private": true,
+  "scripts": {
+    "build": "gulp build",
+    "start": "node dist/server",
+    "dev": "gulp"
+  },
+  "author": "Sonia",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonia-elear1/AgnosCoffeeShop.git"
+  }
+}
