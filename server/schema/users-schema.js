@@ -8,7 +8,7 @@
 /*===============================================================================*/
 
 import mongoose from 'mongoose';
-import { CustomApiError, HttpStatus } from '../utils/custom-api-errors'
+import { CustomErrorCode } from '../utils/custom-api-errors'
 import Constants from '../utils/constants';
 
 let Schema = mongoose.Schema;

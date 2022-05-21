@@ -17,7 +17,7 @@ export const getOrder = (req, res) => {
     return res.send(200);
 }
 
-export const updateOrder = (req, res) => {
+export const updateOrderStatus = (req, res) => {
     console.log("sonia")
     return res.send(200);
 }

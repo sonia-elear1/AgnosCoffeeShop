@@ -7,14 +7,15 @@
 /*********************************************************************************/
 /*===============================================================================*/
 
-import { createProduct, deleteProduct, getProduct, updateProduct } from "./products-controller";
+import { createProduct, getProducts } from "./products-controller";
 import express from 'express';
 
 const productRouter = express.Router();
 
+// CREATE NEW PRODUCT
 productRouter.post('/', createProduct);
-productRouter.get('/:id', getProduct);
-productRouter.put('/:id', updateProduct);
-productRouter.delete('/:id', deleteProduct)
+
+// GET PRODUCT BY PRODUCTID
+productRouter.get('/', getProducts);
 
 module.exports = productRouter;

@@ -22,7 +22,7 @@ var getOrder = exports.getOrder = function getOrder(req, res) {
     return res.send(200);
 };
 
-var updateOrder = exports.updateOrder = function updateOrder(req, res) {
+var updateOrderStatus = exports.updateOrderStatus = function updateOrderStatus(req, res) {
     console.log("sonia");
     return res.send(200);
 };

@@ -8,8 +8,8 @@
 /*===============================================================================*/
 
 import mongoose from 'mongoose';
-import { CustomApiError, HttpStatus } from '../utils/custom-api-errors'
-import Constants from '../utils/constants';
+import { CustomErrorCode } from '../utils/custom-api-errors'
+import { Constants } from '../utils/constants';
 
 let Schema = mongoose.Schema;
 
@@ -24,14 +24,14 @@ let OrdersSchema = new Schema({
     "orderStatus": {
         type: String,
         enum: [Constants.orderStatus.RECIEVED, Constants.orderStatus.PROGRESS, Constants.orderStatus.READY, Constants.orderStatus.COMPLETED],
-        default: Constants.paymentType.RECIEVED
+        default: Constants.orderStatus.RECIEVED
     },
     "estimatedTime": { type: Number, default: 10 },
     "billGenerated": {
-        "itemTotal": { type: mongoose.Types.Decimal128, default: 0.0 },
-        "discount": { type: mongoose.Types.Decimal128, default: 0.0 },
-        "tax": { type: mongoose.Types.Decimal128, default: 0.0 },
-        "totalAmount": { type: mongoose.Types.Decimal128, default: 0.0 }
+        "itemTotal": { type: Number, default: 0.0 },
+        "discount": { type: Number, default: 0.0 },
+        "tax": { type: Number, default: 0.0 },
+        "totalAmount": { type: Number, default: 0.0 }
     },
     "createdAt": { type: Date, default: Date.now },
     "updatedAt": { type: Date, default: Date.now },

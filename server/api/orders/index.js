@@ -7,12 +7,12 @@
 /*********************************************************************************/
 /*===============================================================================*/
 import express from 'express';
-import { createOrder, getOrder, updateOrder } from './orders-controller';
+import { createOrder, getOrder, updateOrderStatus } from './orders-controller';
 
 const ordersRouter = express.Router();
 
 ordersRouter.post('/', createOrder);
 ordersRouter.get('/:id', getOrder);
-ordersRouter.put('/:id', updateOrder);
+ordersRouter.put('/:id', updateOrderStatus);
 
 module.exports = ordersRouter;

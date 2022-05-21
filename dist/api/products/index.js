@@ -19,9 +19,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var productRouter = _express2.default.Router();
 
+// CREATE NEW PRODUCT
 productRouter.post('/', _productsController.createProduct);
-productRouter.get('/:id', _productsController.getProduct);
-productRouter.put('/:id', _productsController.updateProduct);
-productRouter.delete('/:id', _productsController.deleteProduct);
+
+// GET PRODUCT BY PRODUCTID
+productRouter.get('/', _productsController.getProducts);
 
 module.exports = productRouter;

@@ -20,6 +20,6 @@ var ordersRouter = _express2.default.Router();
 
 ordersRouter.post('/', _ordersController.createOrder);
 ordersRouter.get('/:id', _ordersController.getOrder);
-ordersRouter.put('/:id', _ordersController.updateOrder);
+ordersRouter.put('/:id', _ordersController.updateOrderStatus);
 
 module.exports = ordersRouter;

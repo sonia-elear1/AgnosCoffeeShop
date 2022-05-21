@@ -9,17 +9,13 @@
 
 import productRouter from './api/products';
 import ordersRouter from './api/orders';
-import taxRouter from './api/tax';
-import userRouter from './api/users';
-import { HttpStatus } from './utils/custom-api-errors';
+import { HttpStatus } from './utils/constants';
 
 // Routes function to load apis on specific routes
 export default (app) => {
 
-  app.use('/v1/agnos-product', productRouter);
+  app.use('/v1/agnos-products', productRouter);
   app.use('/v1/agnos-orders', ordersRouter);
-  app.use('/v1/agnos-tax', taxRouter);
-  app.use('/v1/agnos-users', userRouter);
 
   app.get('*', (req, res) => {
     return res.status(HttpStatus.NOT_FOUND).send('Page not found');
