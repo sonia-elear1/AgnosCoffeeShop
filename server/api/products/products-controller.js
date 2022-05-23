@@ -10,7 +10,6 @@
 import { Products } from "../../schema/products-schema";
 import { Constants, HttpStatus } from "../../utils/constants";
 import { CustomErrorCode } from "../../utils/custom-api-errors";
-import { validOffers } from "./products-service";
 import { Taxes } from "../../schema/tax-schema"
 
 /**
@@ -22,8 +21,6 @@ import { Taxes } from "../../schema/tax-schema"
  * @param {String} cost - req.body.cost
  * @param {String} taxId - req.body.taxId
  * @param {String} preperationTime - req.body.preperationTime
- * @param {String} discountPercent - req.body.discountPercent
- * @param {Object[]} offers - req.body.offers
  * @returns {Object} - created product
  */
 export const createProduct = (req, res) => {
@@ -34,15 +31,6 @@ export const createProduct = (req, res) => {
     let cost = req.body.cost;
     let taxId = req.body.taxId;
     let preperationTime = req.body.preperationTime;
-    let discountPercent, offers;
-
-    if (req.body.discountPercent) {
-        discountPercent = req.body.discountPercent;
-    };
-
-    if (req.body.offers) {
-        offers = req.body.offers;
-    };
 
     // Check if name is present
     if (name === undefined) {
@@ -115,27 +103,12 @@ export const createProduct = (req, res) => {
         return res.status(HttpStatus.BAD_REQUEST).send({ error: CustomErrorCode.INVALID_INPUT, fieldName: "preperationTime" });
     }
 
-    // check if discount percent is number
-    if (discountPercent && isNaN(discountPercent)) {
-        return res.status(HttpStatus.BAD_REQUEST).send({ error: CustomErrorCode.INVALID_INPUT, fieldName: "discountPercent" });
-    }
-
-    // validate if offer is correct product id added is exist with valid discount or free value
-    if (offers && !validOffers(offers)) {
-        return res.status(HttpStatus.BAD_REQUEST).send({ error: CustomErrorCode.INVALID_INPUT, fieldName: "offer" });
-    }
-
-
-
-    // create new product
+    // check if tax id is present
     return Taxes.findByTaxId(taxId)
         .then((response) => {
             if (!response) {
                 return Promise.reject(CustomErrorCode.INVALID_TAX_ID)
             }
-            if (offers) {
-               return validOffers(offers)
-            };
             return Promise.resolve();
         }).then((res) => {
             if (res === false) {
@@ -150,12 +123,6 @@ export const createProduct = (req, res) => {
             product.cost = cost;
             product.taxId = taxId;
             product.preperationTime = preperationTime;
-            if (discountPercent) {
-                product.discountPercent = discountPercent
-            }
-            if (offers) {
-                product.offers = offers
-            }
             return Products.createProduct(product);
         }).then((product) => {
             return res.status(HttpStatus.OK).send(product);

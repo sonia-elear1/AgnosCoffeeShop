@@ -10,21 +10,6 @@
 import { Products } from "../../schema/products-schema";
 import { Taxes } from "../../schema/tax-schema"
 
-/**
- * Check offers passed is valid or not
- * @param {Object[]} offers - offers array
- * @return Boolean: valid offer or not
- */
-export const validOffers = async (offers) => {
-    for (let offer = 0; offer < offers.length; offer++) {
-        let checkValid = await validProductId(offers[offer].productId);
-        if (!checkValid || (offers[offer].discount && isNaN(offers[offer].discount))
-            || (offers[offer].free && typeof (free) !== 'boolean')) {
-            return false;
-        }
-    }
-    return true;
-}
 
 /**
  * Check product id is valid
@@ -36,7 +21,7 @@ export const validProductId = (productId) => {
         if (!response) {
             return false;
         }
-        return true;
+        return response;
     }).catch((error) => {
         return Promise.reject(error)
     });

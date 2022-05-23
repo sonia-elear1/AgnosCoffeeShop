@@ -15,8 +15,6 @@ var _constants = require("../../utils/constants");
 
 var _customApiErrors = require("../../utils/custom-api-errors");
 
-var _productsService = require("./products-service");
-
 var _taxSchema = require("../../schema/tax-schema");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -30,10 +28,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @param {String} cost - req.body.cost
  * @param {String} taxId - req.body.taxId
  * @param {String} preperationTime - req.body.preperationTime
- * @param {String} discountPercent - req.body.discountPercent
- * @param {Object[]} offers - req.body.offers
  * @returns {Object} - created product
  */
+/*===============================================================================*/
+/*********************************************************************************/
+/**
+ * @fileOverview Controller function of products api
+ * @author SONIA DUA, soniadua7913@gmail.com
+*/
+/*********************************************************************************/
+/*===============================================================================*/
+
 var createProduct = exports.createProduct = function createProduct(req, res) {
     var name = req.body.name;
     var productId = req.body.productId;
@@ -42,16 +47,6 @@ var createProduct = exports.createProduct = function createProduct(req, res) {
     var cost = req.body.cost;
     var taxId = req.body.taxId;
     var preperationTime = req.body.preperationTime;
-    var discountPercent = void 0,
-        offers = void 0;
-
-    if (req.body.discountPercent) {
-        discountPercent = req.body.discountPercent;
-    };
-
-    if (req.body.offers) {
-        offers = req.body.offers;
-    };
 
     // Check if name is present
     if (name === undefined) {
@@ -122,24 +117,11 @@ var createProduct = exports.createProduct = function createProduct(req, res) {
         return res.status(_constants.HttpStatus.BAD_REQUEST).send({ error: _customApiErrors.CustomErrorCode.INVALID_INPUT, fieldName: "preperationTime" });
     }
 
-    // check if discount percent is number
-    if (discountPercent && isNaN(discountPercent)) {
-        return res.status(_constants.HttpStatus.BAD_REQUEST).send({ error: _customApiErrors.CustomErrorCode.INVALID_INPUT, fieldName: "discountPercent" });
-    }
-
-    // validate if offer is correct product id added is exist with valid discount or free value
-    if (offers && !(0, _productsService.validOffers)(offers)) {
-        return res.status(_constants.HttpStatus.BAD_REQUEST).send({ error: _customApiErrors.CustomErrorCode.INVALID_INPUT, fieldName: "offer" });
-    }
-
-    // create new product
+    // check if tax id is present
     return _taxSchema.Taxes.findByTaxId(taxId).then(function (response) {
         if (!response) {
             return _promise2.default.reject(_customApiErrors.CustomErrorCode.INVALID_TAX_ID);
         }
-        if (offers) {
-            return (0, _productsService.validOffers)(offers);
-        };
         return _promise2.default.resolve();
     }).then(function (res) {
         if (res === false) {
@@ -154,12 +136,6 @@ var createProduct = exports.createProduct = function createProduct(req, res) {
         product.cost = cost;
         product.taxId = taxId;
         product.preperationTime = preperationTime;
-        if (discountPercent) {
-            product.discountPercent = discountPercent;
-        }
-        if (offers) {
-            product.offers = offers;
-        }
         return _productsSchema.Products.createProduct(product);
     }).then(function (product) {
         return res.status(_constants.HttpStatus.OK).send(product);
@@ -172,15 +148,6 @@ var createProduct = exports.createProduct = function createProduct(req, res) {
  * Get all products
  * @returns {Object} - product
  */
-/*===============================================================================*/
-/*********************************************************************************/
-/**
- * @fileOverview Controller function of products api
- * @author SONIA DUA, soniadua7913@gmail.com
-*/
-/*********************************************************************************/
-/*===============================================================================*/
-
 var getProducts = exports.getProducts = function getProducts(req, res) {
     return _productsSchema.Products.findAll().then(function (product) {
         return res.status(_constants.HttpStatus.OK).send(product);

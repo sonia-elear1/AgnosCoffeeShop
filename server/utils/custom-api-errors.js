@@ -35,12 +35,16 @@ export const CustomErrorCode = {
     "message": "Tax Id is invalid"
   },
 
-  "INVALID_OFFERS":{
+  "INVALID_OFFERS": {
     "httpstatus": HttpStatus['BAD_REQUEST'],
     "code": 40002,
     "message": "Offer array is invalid"
   },
-
+  "INVALID_PRODUCTS": {
+    "httpstatus": HttpStatus['BAD_REQUEST'],
+    "code": 40002,
+    "message": "Product is invalid"
+  },
   "DUPLICATE_DATA": {
     "httpstatus": HttpStatus['BAD_REQUEST'],
     "code": 40004,

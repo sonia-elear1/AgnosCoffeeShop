@@ -42,14 +42,8 @@ var ProductsSchema = new Schema({
     required: true
   },
   "cost": { type: Number, default: 0.0 },
-  "discountPercent": { type: Number, default: 0.0 },
   "taxId": { type: String, ref: 'Tax' },
   "preperationTime": { type: Number, default: 10, maximum: 30 },
-  "offers": [{
-    "productId": { type: String, minLength: 4, maxLength: 10 },
-    "discount": { type: Number, default: 0.0 },
-    "free": { type: Boolean, default: false }
-  }],
   "createdAt": { type: Date, default: Date.now }
 });
 

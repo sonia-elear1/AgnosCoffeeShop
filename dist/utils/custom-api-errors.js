@@ -38,7 +38,11 @@ var CustomErrorCode = exports.CustomErrorCode = {
     "code": 40002,
     "message": "Offer array is invalid"
   },
-
+  "INVALID_PRODUCTS": {
+    "httpstatus": _constants.HttpStatus['BAD_REQUEST'],
+    "code": 40002,
+    "message": "Product is invalid"
+  },
   "DUPLICATE_DATA": {
     "httpstatus": _constants.HttpStatus['BAD_REQUEST'],
     "code": 40004,

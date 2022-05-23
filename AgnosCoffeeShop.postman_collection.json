@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "387825fa-120b-4fb1-aee7-b30bb2d5cd7e",
+		"name": "AgnosCoffeeShop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Veg Burger\",\r\n    \"productId\": \"BUR03\",\r\n    \"type\": \"VEG\",\r\n    \"category\": \"BURGER\",\r\n    \"cost\": 112.00,\r\n    \"taxId\": \"Burg123\",\r\n    \"preperationTime\":11\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/agnos-products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"agnos-products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/agnos-products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"agnos-products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE ORDER",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"contactNumber\": \"9451387442\",\r\n    \"firstName\": \"sonia\",\r\n    \"lastName\": \"duaAA\",\r\n     \"productIds\": [\"BUR01\", \"BUR02\"],\r\n     \"paymentType\": \"UPI\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/agnos-orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"agnos-orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPdate order status",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/agnos-orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"agnos-orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getorder by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/agnos-orders/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"agnos-orders",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "\"628a886728b7080d5842d711\""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

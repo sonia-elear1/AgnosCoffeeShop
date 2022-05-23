@@ -13,6 +13,6 @@ const ordersRouter = express.Router();
 
 ordersRouter.post('/', createOrder);
 ordersRouter.get('/:id', getOrder);
-ordersRouter.put('/:id', updateOrderStatus);
+ordersRouter.put('/', updateOrderStatus);
 
 module.exports = ordersRouter;
