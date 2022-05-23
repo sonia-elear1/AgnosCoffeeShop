@@ -41,7 +41,7 @@ export const getEstimatedTime = (products) => {
 
 /**
  * calculate order bill
- * @param {*} products 
+ * @param {Object[]} products 
  * @returns {Object} - bill generated
  */
 export const calculateBill = async (products) => {

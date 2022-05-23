@@ -13,7 +13,15 @@ import { CustomErrorCode } from "../../utils/custom-api-errors";
 import { validateProductId, getEstimatedTime, calculateBill } from "./orders-service";
 
 
-// CREATE NEW ORDER API 
+/**
+ * Create new order
+ * @param {String} req.body.contactNumber 
+ * @param {String[]} req.body.productIds 
+ * @param {String} req.body.paymentType 
+ * @param {String} req.body.firstName 
+ * @param {String} req.body.lastName
+ * @returns {Object} order created
+ */
 export const createOrder = (req, res) => {
     let contactNumber = req.body.contactNumber;
     let firstName = req.body.firstName;
@@ -66,7 +74,9 @@ export const createOrder = (req, res) => {
         return res.status(HttpStatus.BAD_REQUEST).send({ error: CustomErrorCode.INVALID_INPUT, fieldName: "lastName" });
     }
 
+    // check if contact number exist
     return Users.findByContactNumber(contactNumber).then((userInfo) => {
+        // if contact number not exist in users create new user
         if (!userInfo) {
             let user = new Users();
             user.firstName = firstName;
@@ -82,18 +92,25 @@ export const createOrder = (req, res) => {
             return Promise.reject(CustomErrorCode.DATABASE_ERROR)
         }
         userDetails = userRecord;
+        // validate product ids if exist return product details
         return validateProductId(productIds)
     }).then((validateProduct) => {
         if (!validateProduct) {
             return Promise.reject(CustomErrorCode.INVALID_PRODUCTS)
         }
         products = validateProduct;
+
+        // get estimated time for products preperation
         estimatedTime = getEstimatedTime(products)
+
+        // calculate bill for order placed
         return calculateBill(products);
     }).then((bill) => {
         if (bill.freeItemsId) {
             productIds.push(...bill.freeItemsId)
         }
+
+        // create order object
         let order = new Orders();
         order.userId = userDetails._id;
         order.productIds = productIds;
@@ -109,6 +126,11 @@ export const createOrder = (req, res) => {
 
 }
 
+/**
+ * GET ORDER BY ID
+ * @param {String} orderId: req.params.id 
+ * @returns {Object} orderDetails
+ */
 export const getOrder = (req, res) => {
     let orderId = req.params.id;
     if(!isMongodbId(orderId)) {

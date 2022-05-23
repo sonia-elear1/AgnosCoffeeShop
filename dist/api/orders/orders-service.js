@@ -111,7 +111,7 @@ var getEstimatedTime = exports.getEstimatedTime = function getEstimatedTime(prod
 
 /**
  * calculate order bill
- * @param {*} products 
+ * @param {Object[]} products 
  * @returns {Object} - bill generated
  */
 var calculateBill = exports.calculateBill = function () {

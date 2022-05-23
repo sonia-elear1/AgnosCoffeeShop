@@ -25,8 +25,8 @@ OffersSchema.statics = {
 
     /**
     * Finds the offer based on product id
-    * @param  {String} taxid - tax id
-    * @returns {Object} tax- return tax
+    * @param  {String} productId - product id
+    * @returns {Object} productdetails
     */
     findByProductId(productId) {
         return new Promise((resolve, reject) => {

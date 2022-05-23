@@ -25,7 +25,15 @@ var _ordersService = require("./orders-service");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// CREATE NEW ORDER API 
+/**
+ * Create new order
+ * @param {String} req.body.contactNumber 
+ * @param {String[]} req.body.productIds 
+ * @param {String} req.body.paymentType 
+ * @param {String} req.body.firstName 
+ * @param {String} req.body.lastName
+ * @returns {Object} order created
+ */
 var createOrder = exports.createOrder = function createOrder(req, res) {
     var contactNumber = req.body.contactNumber;
     var firstName = req.body.firstName;
@@ -80,7 +88,9 @@ var createOrder = exports.createOrder = function createOrder(req, res) {
         return res.status(_constants.HttpStatus.BAD_REQUEST).send({ error: _customApiErrors.CustomErrorCode.INVALID_INPUT, fieldName: "lastName" });
     }
 
+    // check if contact number exist
     return _usersSchema.Users.findByContactNumber(contactNumber).then(function (userInfo) {
+        // if contact number not exist in users create new user
         if (!userInfo) {
             var user = new _usersSchema.Users();
             user.firstName = firstName;
@@ -96,18 +106,25 @@ var createOrder = exports.createOrder = function createOrder(req, res) {
             return _promise2.default.reject(_customApiErrors.CustomErrorCode.DATABASE_ERROR);
         }
         userDetails = userRecord;
+        // validate product ids if exist return product details
         return (0, _ordersService.validateProductId)(productIds);
     }).then(function (validateProduct) {
         if (!validateProduct) {
             return _promise2.default.reject(_customApiErrors.CustomErrorCode.INVALID_PRODUCTS);
         }
         products = validateProduct;
+
+        // get estimated time for products preperation
         estimatedTime = (0, _ordersService.getEstimatedTime)(products);
+
+        // calculate bill for order placed
         return (0, _ordersService.calculateBill)(products);
     }).then(function (bill) {
         if (bill.freeItemsId) {
             productIds.push.apply(productIds, (0, _toConsumableArray3.default)(bill.freeItemsId));
         }
+
+        // create order object
         var order = new _ordersSchema.Orders();
         order.userId = userDetails._id;
         order.productIds = productIds;
@@ -120,7 +137,14 @@ var createOrder = exports.createOrder = function createOrder(req, res) {
     }).catch(function (error) {
         return res.status(error.httpstatus).send(error);
     });
-}; /*===============================================================================*/
+};
+
+/**
+ * GET ORDER BY ID
+ * @param {String} orderId: req.params.id 
+ * @returns {Object} orderDetails
+ */
+/*===============================================================================*/
 /*********************************************************************************/
 /**
  * @fileOverview Controller function of orders api

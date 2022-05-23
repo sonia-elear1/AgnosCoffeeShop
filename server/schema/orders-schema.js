@@ -98,17 +98,17 @@ OrdersSchema.statics = {
 
     /**
   * Finds the document based on ORDER id
-  * @param  {String} taxid - tax id
-  * @returns {Object} tax- return tax
+  * @param  {String} _id - order id
+  * @returns {Object} order
   */
   findByOrderId(_id) {
     return new Promise((resolve, reject) => {
-      this.findOne({ _id }, (err, productData) => {
+      this.findOne({ _id }, (err, order) => {
         if (err) {
           console.error('findByOrderId: Error occured in order collection', err);
           reject(new Error(CustomErrorCode.INTERNAL_SERVER_ERROR));
         } else {
-          resolve(productData);
+          resolve(order);
         }
       });
     });

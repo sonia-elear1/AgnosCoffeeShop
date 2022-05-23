@@ -54,8 +54,8 @@ ProductsSchema.statics = {
 
   /**
   * Finds the document based on product id
-  * @param  {String} taxid - tax id
-  * @returns {Object} tax- return tax
+  * @param  {String} productId - product id
+  * @returns {Object} productDetail
   */
   findByProductId: function findByProductId(productId) {
     var _this = this;
@@ -92,9 +92,8 @@ ProductsSchema.statics = {
 
 
   /**
-  * Finds the document based on product id
-  * @param  {String} taxid - tax id
-  * @returns {Object} tax- return tax
+  * Finds the products
+  * @returns {Object[]} products
   */
   findAll: function findAll() {
     var _this2 = this;
